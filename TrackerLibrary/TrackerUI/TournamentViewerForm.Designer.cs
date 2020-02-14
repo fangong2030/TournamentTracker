@@ -104,11 +104,12 @@
             // matchupListBox
             // 
             this.matchupListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.matchupListBox.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.matchupListBox.FormattingEnabled = true;
-            this.matchupListBox.ItemHeight = 35;
+            this.matchupListBox.ItemHeight = 23;
             this.matchupListBox.Location = new System.Drawing.Point(36, 178);
             this.matchupListBox.Name = "matchupListBox";
-            this.matchupListBox.Size = new System.Drawing.Size(272, 247);
+            this.matchupListBox.Size = new System.Drawing.Size(272, 232);
             this.matchupListBox.TabIndex = 5;
             // 
             // teamOneName
