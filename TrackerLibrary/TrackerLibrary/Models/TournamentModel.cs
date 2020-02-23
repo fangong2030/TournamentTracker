@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrackerLibrary
+namespace TrackerLibrary.Models
 {
+    /// <summary>
+    /// Represents one tournament, with all of the rounds, matchups and outcome
+    /// </summary>
     public class TournamentModel
     {
         public string TournamentName { get; set; }
