@@ -14,14 +14,39 @@ namespace TrackerUI
 {
     public partial class CreateTeamForm : Form
     {
+
+        private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPerson_All();
+        private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
+
         public CreateTeamForm()
         {
             InitializeComponent();
+
+            //CreateSampleData();
+
+            WireUpLists();
         }
 
-        private void deleteSelectedPlayerButton_Click(object sender, EventArgs e)
+        private void CreateSampleData()
         {
+            availableTeamMembers.Add(new PersonModel { FirstName = "Tim", LastName = "Corey" });
+            availableTeamMembers.Add(new PersonModel { FirstName = "Sue", LastName = "Corey" });
 
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Jane", LastName = "Smith" });
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Bill", LastName = "Smith" });
+        }
+
+        private void WireUpLists()
+        {
+            selectTeamMemberDropDown.DataSource = null;
+
+            selectTeamMemberDropDown.DataSource = availableTeamMembers;
+            selectTeamMemberDropDown.DisplayMember = "FullName";
+
+            teamMembersListBox.DataSource = null;
+
+            teamMembersListBox.DataSource = selectedTeamMembers;
+            teamMembersListBox.DisplayMember = "FullName";
         }
 
         private void createTeamButton_Click(object sender, EventArgs e)
@@ -59,10 +84,13 @@ namespace TrackerUI
                 // TODO - CreateTeam in IDataConnection
                 GlobalConfig.Connection.CreatePerson(person);
 
-                //firstNameValue.Text = "";
-                //lastNameValue.Text = "";
-                //emailValue.Text = "";
-                //cellphoneValue.Text = "";
+                availableTeamMembers.Add(person);
+                WireUpLists();
+
+                firstNameValue.Text = "";
+                lastNameValue.Text = "";
+                emailValue.Text = "";
+                cellphoneValue.Text = "";
 
             }
             else
@@ -73,7 +101,30 @@ namespace TrackerUI
 
         private void addMemberButton_Click(object sender, EventArgs e)
         {
+            PersonModel p = (PersonModel)selectTeamMemberDropDown.SelectedItem;
 
+            if (p != null)
+            {
+                availableTeamMembers.Remove(p);
+                selectedTeamMembers.Add(p);
+
+                WireUpLists(); 
+            }
         }
+
+        private void removeSelectedPlayerButton_Click(object sender, EventArgs e)
+        {
+            PersonModel p = (PersonModel)teamMembersListBox.SelectedItem;
+
+            if (p != null)
+            {
+                selectedTeamMembers.Remove(p);
+                availableTeamMembers.Add(p);
+
+                WireUpLists();
+
+            }
+        }
+
     }
 }
